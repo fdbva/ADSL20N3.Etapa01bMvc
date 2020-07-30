@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AcessoDados;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Negocio;
 
 namespace ADSL20N3.Etapa01bMvc
 {
@@ -24,6 +26,9 @@ namespace ADSL20N3.Etapa01bMvc
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddScoped<IBatataService, BatataService>();
+            services.AddSingleton<IBatataRepository, BatataRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,7 +55,7 @@ namespace ADSL20N3.Etapa01bMvc
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Batata}/{action=Frita}/{id?}");
+                    pattern: "{controller=Batata}/{action=Assada}/{id?}");
             });
         }
     }
